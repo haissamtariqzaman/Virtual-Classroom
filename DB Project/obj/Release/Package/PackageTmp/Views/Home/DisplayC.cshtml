@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+@using DB_Project.Models
+@model string
+
+@{
+    User user = (User)Session["user"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/NavButton.js"></script>
+    <script src="~/Scripts/DisplayC.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    <link href="~/Icons/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/DisplayC.css" rel="stylesheet" />
+    <title>Update Profile Picture</title>
+</head>
+<body>
+    <div id="nav">
+        <nav>
+            <div class="backButton">
+                <a class="nava" href="ClassSelect"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+            </div>
+            <div class="LogoutButton">
+                <label class="navname inline1"><strong>@user.fname @user.lname  </strong></label>
+                <button class="navButton inline1" onclick="logout('navDrop')"><img class="navimage" src="@user.pic" /></button>
+                <div id="navDrop" class="navDrop">
+                    <a class="link" href="~/home/PassC">Change Password</a>
+                    <a class="link" href="#">Update Picture</a>
+                    <a href="~/home/logout" class="link">Logout <i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+            <ul id="nav1">
+            </ul>
+        </nav>
+    </div>
+
+    <div class="heading">
+        <h2>Change Profile Picture</h2>
+    </div>
+    <div class="box">
+        <img class="image" src="@user.pic" />
+        <form class="form" method="post" action="~/home/DisplayC" enctype="multipart/form-data" onsubmit="return checkIfImage()">
+            <input id="pic" class="upload" type="file" name="picture" accept="image/*" required />
+            <br />
+            <br />
+            <input class="button" type="submit" value="Upload"/>
+        </form>
+    </div>
+</body>
+</html>

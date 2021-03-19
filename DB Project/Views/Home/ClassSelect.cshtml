@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "ClassSelect";
+}
+
+@using DB_Project.Models
+
+@model dynamic
+
+@{
+    User user = (User)Session["user"];
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Classes</title>
+        <link href="~/Content/ClassSelect.css" rel="stylesheet" />
+        <link href="~/Icons/css/all.min.css" rel="stylesheet" />
+        <script src="~/Scripts/ClassSelect.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    </head>    
+    <body>
+        <div id="nav">
+            <nav>
+                <div id="JoinClass" onclick="popup()">
+                    <a class="nava" href="#" ><i class="fas fa-plus-circle"></i> Join Class</a>
+                </div>
+                <div id="AddClass" onclick="popup1()">
+                    <a class="nava" href="#" ><i class="fas fa-plus"></i> Add Class</a>
+                </div>
+                <div class="LogoutButton">
+                    <label class="navname inline"><strong>@user.fname @user.lname  </strong></label>
+                    <button class="navButton inline" onclick="logout('navDrop')"><img class="navimage" src="@user.pic" /></button>
+                    <div id="navDrop" class="navDrop">
+                        <a class="link" href="~/home/PassC">Change Password</a>
+                        <a class="link" href="~/home/DisplayC">Update Picture</a>
+                        <a href="~/home/logout" class="link">Logout <i class="fas fa-sign-out-alt"></i></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        @{
+            if(ViewBag.message!=null)
+            {
+                <div class="errorBox">@ViewBag.message</div>
+            }
+        }
+        <div id="mainContainer">
+            @{int x=0;}
+            @foreach  (ClassDetails h in Model.classDetails)
+            {
+                <div class="box">
+                    <div class="classinfo">
+                        <a class="ToStreamLink" href="~/home/stream?class1=@h.id"></a>
+                        <div class="pictureComm">
+                            <img class="picComm" src="@h.picture" />
+                        </div>
+                        <div class="classname">
+                            <h3 class="name">@h.name</h3>
+                            <p class="pr">@h.section</p>
+                            <p class="pr">@h.fname @h.lname</p>
+                        </div>
+                        <div class="dropdown">
+                            <button onclick="dropDownClick('class @h.id')" class="dropDownS">&#8942</button>
+                            <div id="class @h.id" class="dropdown-content">
+                                <a class="ds1" href="~/home/ExitClass?class1=@h.id">Exit Class</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assignDue">
+                        @{
+                            Assignment a= Model.assignmnetDue[x++];
+                            if (a != null)
+                            {
+                                <h4>Due @a.dayDue</h4>
+                                <p>@a.deadline</p>
+                                <p>@a.title</p>
+                            }
+                         }
+                    </div>
+                </div>
+            }
+        </div>
+        <div id="joinClassM" class="joinClassMain">
+            <div class="joinClass">
+                <form method="post" class="joinForm" action="~/home/JoinClass">
+                    <h3>Enter your class code here</h3>
+                    <input class="ccode" type="text" placeholder="Class Code" name="code" />
+                    <br />
+                    <input class="cancelB" type="button" value="Cancel" onclick="popUpOff()"/>
+                    <input class="joinB" type="submit" value="Join" />
+                </form>
+            </div>
+        </div>
+
+         <div id="addClassM" class="addClassMain">
+            <div class="addClass">
+                <form method="post" class="addForm" action="~/home/AddClass">
+                    <h3>Class Name</h3>
+                    <input class="cinput" type="text" name="name" required />
+                    <h3>Section</h3>
+                    <input class="cinput" type="text" name="section" />
+                    <h3>Subject</h3>
+                    <input class="cinput" type="text" name="subject" />
+                    <br />
+                    <input class="cancelBc" type="button" value="Cancel" onclick="popUpOff()"/>
+                    <input class="addBc" type="submit" value="Create" />
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

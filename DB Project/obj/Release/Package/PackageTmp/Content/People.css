@@ -1,0 +1,336 @@
+﻿body {
+    font-family: 'Montserrat', sans-serif;
+    background-color:#223145;
+    color:#1F2833;
+    /*background: rgb(2,0,36);
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(79,79,182,1) 0%, rgba(0,212,255,1) 100%);*/
+}
+
+#nav {
+    margin:auto;
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #1F2833;
+    background-color:white;
+}
+
+#nav1 {
+    margin: 0;
+    padding: 0;
+}
+
+.backButton {
+    float:left;
+    margin-top:12px;
+    margin-left:10px;
+}
+
+.LogoutButton {
+    display:flex;
+    position:relative;
+    float: right;
+    margin-top: 6px;
+    margin-right: 10px;
+    align-items:center;
+}
+
+.navname {
+    font-size:16px;
+    height:20px;
+}
+
+.navButton {
+    background-color:transparent;
+    border:none;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.navButton:focus {
+    outline:none;
+}
+
+.navimage {
+    margin-top:3px;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+}
+
+.inline {
+    display:inline-block;
+}
+
+.navDrop {
+    display:none;
+    position:absolute;
+    padding:5px;
+    top:55px;
+    right:0px;
+    background-color:white;
+    border-radius:10px;
+    color:#1F2833;
+    font-size:14px;
+        width:150px;
+    z-index:2;
+}
+
+.link {
+    display:block;
+    padding:5px 10px;
+    text-decoration:none;
+    border-radius:20px;
+    color:#1F2833;
+}
+
+.link:hover {
+    background-color:#1F2833;
+    color:white;
+}
+
+.active {
+    border-bottom: 5px solid #1F2833;
+    display: inline-block;
+    padding: 10px 20px;
+    width: 110px;
+}
+
+#nav1 .navli {
+    display: inline-block;
+    padding:10px 20px;
+    width:110px;
+}
+
+.navli:hover {
+    border-bottom: 5px solid #1F2833;
+}
+
+.nava {
+    color: #1F2833;
+    font-size: 17px;
+    font-family: 'Cairo', sans-serif;
+    text-decoration: none;
+}
+
+.main {
+    width:100%;
+}
+
+.t {
+    color: white;
+    letter-spacing: 2px;
+    padding-left: 10px;
+    margin-top: 20px;
+    text-align: center;
+    width:100%;
+    position:relative;
+}
+
+.teachers, .students {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    width:100%;
+}
+
+.box {
+    background-color:white;
+    width:220px;
+    height:320px;
+    text-align:center;
+    margin-top:15px;
+    margin-bottom:15px;
+    margin-left:10px;
+    line-height:18px;
+    box-shadow: 0 4px 8px 0 rgba(255,255,255,0.2);
+    transition: 0.3s;
+    position:relative;
+    border-radius:15px;
+}
+
+.box:hover {
+    box-shadow: 0 8px 16px 0 rgba(255,255,255,0.3);
+}
+
+.closeB {
+    width:40px;
+    height:40px;
+    position:absolute;
+    right:0px;
+    font-size:25px;
+    color:white;
+    background-color:transparent;
+    border:none;
+    cursor:pointer;
+    border-radius:50%;
+}
+
+.closeB:hover {
+    background-color:rgba(255,255,255,0.1);
+}
+
+.closeB:focus {
+    outline:none;
+}
+
+.image{
+    width:220px;
+    height:220px;
+    border-top-left-radius:15px;
+    border-top-right-radius:15px;
+}
+
+.name {
+    font-size:18px;
+    letter-spacing:2px;
+}
+
+.email {
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.6px;
+}
+
+.ds1 {
+    text-decoration:none;
+    color:#1F2833;
+    cursor:pointer;
+    padding:4px;
+}
+
+.ds1:hover {
+    color:white;
+    background-color:#1F2833;
+    cursor: pointer;
+    border-radius:4px;
+}
+
+.dropdown-content {
+    display:none;
+    position:absolute;
+    overflow:auto;
+    right:5px;
+    top:45px;
+    background-color:white;
+    z-index:1;
+    min-width:70px;
+    padding:6px 8px;
+    border-radius:5px;
+}
+
+.addbutton {
+    position:absolute;
+    float:left;
+    width:45px;
+    height:45px;
+    left:34px;
+    top:-1px;
+    font-size:20px;
+    background-color:white;
+    color:#1F2833;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    text-align:center;
+    align-items:center;
+}
+
+.addbutton:hover {
+    background-color:#1F2833;
+    color:white;
+}
+
+.addbutton:focus {
+    outline:none;
+}
+
+@keyframes popout {
+    from {transform: scale(0)}
+    to {transform:scale(1)}
+}
+
+#AddPeopleM {
+    display:none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    justify-content:center;
+    align-items:center;
+}
+
+.AddPeople {
+    background-color:white;
+    width:500px;
+    height:300px;
+    text-align:center;
+    animation:popout 1s;
+}
+
+.addform {
+    width:300px;
+    margin:auto;
+    padding-top:80px;
+}
+
+.emailInput {
+    width:300px;
+    font-size:16px;
+    outline:none;
+    border:none;
+    border-bottom:2px solid #1F2833;
+    text-align:center;
+}
+
+.closebutton {
+    float:right;
+    margin-top:4px;
+    margin-right:3px;
+    background-color:transparent;
+    outline:none;
+    font-size:25px;
+    border:none;
+    cursor:pointer;
+    border-radius:50%;
+}
+
+.closebutton:hover {
+    background-color:rgba(0,0,0,0.1);
+}
+
+.button {
+    background-color:transparent;
+    outline:none;
+    border:2px solid #1F2833;
+    font-size:14px;
+    padding:6px;
+    cursor:pointer;
+    font-family:'Montserrat'
+}
+
+.button:hover {
+    background-color:#1F2833;
+    color:white;
+    transition: 0.3s;
+}
+
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.errorBox {
+    background-color:red;
+    text-align:center;
+    animation:seconds 5s forwards;
+    font-size:22px;
+    color:white;
+}

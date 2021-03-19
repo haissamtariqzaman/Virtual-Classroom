@@ -1,0 +1,126 @@
+﻿@{
+    Layout = null;
+}
+
+@using DB_Project.Models
+@model dynamic
+
+@{
+    User user = (User)Session["user"];
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Classes</title>
+        <link href="~/Icons/css/all.min.css" rel="stylesheet" />
+        <link href="~/Content/AssignSub.css" rel="stylesheet" />
+        <script src="~/Scripts/AssignSub.js"></script>
+        <script src="~/Scripts/NavButton.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    </head>    
+    <body>
+        <div id="nav">
+                <nav>
+                    <div class="backButton">
+                        <a class="nava" href="ClassSelect"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+                    </div>
+                    <div class="LogoutButton">
+                        <label class="navname inline1"><strong>@user.fname @user.lname  </strong></label>
+                        <button class="navButton inline1" onclick="logout('navDrop')"><img class="navimage" src="@user.pic" /></button>
+                        <div id="navDrop" class="navDrop">
+                            <a class="link" href="~/home/PassC">Change Password</a>
+                            <a class="link" href="~/home/DisplayC">Update Picture</a>
+                            <a href="~/home/logout" class="link">Logout <i class="fas fa-sign-out-alt"></i></a>
+                        </div>
+                    </div>
+                    <ul id="nav1">
+                        <li class="navli"><a class="nava" href="~/home/stream?class1=@Model.classId"><i class="far fa-newspaper"></i> &nbsp Feed</a></li>
+                        <li class="active"><a class="nava" href="~/home/Classwork?class1=@Model.classId"><i class="fas fa-chalkboard-teacher"></i> &nbsp Classwork</a></li>
+                        <li class="navli"><a class="nava" href="~/home/People?class1=@Model.classId"><i class="fas fa-users"></i> &nbsp People</a></li>
+                    </ul>
+                </nav>
+        </div>
+
+        @{
+            Assignment a = @Model.assignment;
+        }
+
+        <div id="main">
+            <div class="content">
+                <h3 class="assignName">@a.title</h3>
+                <label class="dueDate"><strong>Due @a.deadline</strong></label>
+                <div class="additionl">
+                    <p class="notes">@a.notes</p>
+                    <div class="attachmentsParent">
+                        @{
+                            foreach (DB_Project.Models.File f in a.files)
+                            {
+                                <a href="~/home/DownloadFile?path=@f.filePath&name=@f.fileName" class="attachments">
+                                    <div class="Docicon"><i class="fas fa-file-alt"></i></div>
+                                    <h4 class="filename">@f.fileName</h4>
+                                </a> 
+                            }
+                        } 
+                    </div>
+                    <div class="dposted">
+                        <label >@a.dateUploaded</label>
+                    </div>
+                </div>
+            </div>
+            <div id="sub">
+                <h2 class="ysub"> Your Submission</h2>
+                <div class="subBox">
+                    <h3>Submit Assignment</h3>
+                    <form method="post" action="" enctype="multipart/form-data">
+                        <div id="uploads">
+                        </div>
+                        <div class="upoadButton">
+                            <label class="afiles" for="upload"> Add Files </label>
+                            <input type="file" name="files" id="upload" onchange="uploadChanged()" multiple/>
+                        </div>
+                        @{
+                            if (@Model.subLeft==0)
+                            {
+                                <button class="tin" type="submit" disabled>Turn in</button>
+                            }
+                            else
+                            {
+                                <button class="tin" name="class1" value="@Model.classId" type="submit">Turn in</button>
+                            }    
+                        }
+                        <input type="hidden" name="aid" value="@a.id"/>
+                    </form>
+                    <p>Submisions Left: @Model.subLeft</p>
+                </div>
+                <div class="subInfo">
+                        @{
+                            AssignmentSubmitted asub=@Model.assignSub;
+                        }
+                        @if (asub != null)
+                        {
+                            <div class="inline">
+                                <h4>Submission Date: </h4> 
+                                <p>@asub.dateSubmitted</p>
+                            </div>
+                            <div class="inline">
+                                <h4>Submitted: </h4> 
+                                <p>@asub.status</p>
+                            </div>
+                            <h4 class="inline">Files Submitted:</h4>
+                            <div class="filesSub">
+                                @foreach(DB_Project.Models.File f in asub.filesSubmitted)
+                                {
+                                    <a href="~/home/DownloadFile?path=@f.filePath&name=@f.fileName" class="fileCont">
+                                        <div class="Docicon"><i class="fas fa-file-alt"></i></div>
+                                        <h4 class="filename">@f.fileName</h4>
+                                    </a>
+                                }
+                            </div>
+                        }   
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

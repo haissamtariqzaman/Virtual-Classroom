@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Signup";
+}
+
+@model string
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Signup</title>
+    <link href="~/Content/Signup.css" rel="stylesheet" />
+    <script src="~/Scripts/Signup.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+    <body>
+        <div id="main">
+            <form method="post" id="form" action="~/Home/Signup" onsubmit="return inputValidation()">
+                <div id="signup">Sign Up</div>
+                <div id="content">
+                    <div class="errMsg">
+                        <label>@Model</label>
+                    </div>
+                    <div id="fname">
+                        <i class="fa fa-user icon"></i> Name
+                        <br />
+                        <input class="content2" type="text" placeholder="First name" name="fname" required />
+                        <input class="content2" type="text" placeholder="Last name" name="lname" required />
+                    </div>
+                    <div id="email">
+                        <i class="fa fa-envelope icon"></i> Email
+                        <br />
+                        <input id="eml" class="content1" type="text" placeholder="abc@xyz.com" name="email" required />
+                    </div>
+                    <div id="pass">
+                        <i class="fa fa-key icon"></i> Password
+                        <br />
+                        <input id="pass1" class="content1" type="password" placeholder="Password" name="password" required />
+                    </div>
+                    <div id="dob">
+                        <i class="fa fa-birthday-cake icon"></i> Date of birth
+                        <br />
+                        <input id="ddobb" class="content1" type="date" name="dob" required />
+                    </div>
+                    <div id="gender">
+                        <i class="fa fa-venus icon"></i> Gender
+                        <br />
+                        <select class="content1" id="gender1" name="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Rather not say</option>
+                        </select>
+                    </div>
+                    <div id="submit">
+                        <input class="signup" value="Signup" type="submit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+
+</html>

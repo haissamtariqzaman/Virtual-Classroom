@@ -1,0 +1,119 @@
+﻿@{
+    Layout = null;
+}
+
+@model dynamic
+@using DB_Project.Models
+
+@{
+    User user = (User)Session["user"];
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Classes</title>
+        <link href="~/Icons/css/all.min.css" rel="stylesheet" />
+        <link href="~/Content/StudentsWork.css" rel="stylesheet" />
+        <script src="~/Scripts/NavButton.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    </head>    
+    <body>
+        <div id="nav">
+                <nav>
+                    <div class="backButton">
+                        <a class="nava" href="ClassSelect"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+                    </div>
+                    <div class="LogoutButton">
+                        <label class="navname inline"><strong>@user.fname @user.lname  </strong></label>
+                        <button class="navButton inline" onclick="logout('navDrop')"><img class="navimage" src="@user.pic" /></button>
+                        <div id="navDrop" class="navDrop">
+                            <a class="link" href="~/home/PassC">Change Password</a>
+                            <a class="link" href="~/home/DisplayC">Update Picture</a>
+                            <a href="~/home/logout" class="link">Logout <i class="fas fa-sign-out-alt"></i></a>
+                        </div>
+                    </div>
+                    <ul id="nav1">
+                        <li class="navli"><a class="nava" href="~/home/stream?class1=@Model.class1"><i class="far fa-newspaper"></i> &nbsp Feed</a></li>
+                        <li class="active"><a class="nava" href="~/home/Classwork?class1=@Model.class1"><i class="fas fa-chalkboard-teacher"></i> &nbsp Classwork</a></li>
+                        <li class="navli"><a class="nava" href="~/home/People?class1=@Model.class1"><i class="fas fa-users"></i> &nbsp People</a></li>
+                    </ul>
+                </nav>
+        </div>
+        <div id="mian">
+            <div class="ontime">
+                <h3 class="heading">Submitted on time</h3>
+                <div class="content">
+                    @{
+                        foreach(AssignmentSubmitted a in @Model.onTime)
+                        {
+                            <div class="box">
+                                <div>
+                                    <img class="inline image" src="@a.user.pic" />
+                                    <h4 class="inline name">@a.user.fname @a.user.lname</h4>
+                                </div>
+                                @foreach (DB_Project.Models.File f in a.filesSubmitted)
+                                {
+                                    <a href="~/home/DownloadFile?path=@f.filePath&name=@f.fileName" class="fileCont">
+                                        <div class="Docicon inline"><i class="fas fa-file-alt"></i></div>
+                                        <p class="filename inline">@f.fileName</p>
+                                    </a>
+                                }
+                                <div class="subTime">
+                                    <p>Submitted on</p>
+                                    <p>@a.dateSubmitted</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="late">
+                <h3 class="heading">Submitted late</h3>
+                <div class="content">
+                    @{
+                        foreach(AssignmentSubmitted a in @Model.late)
+                        {
+                            <div class="box">
+                                <div>
+                                    <img class="inline image" src="@a.user.pic" />
+                                    <h4 class="inline name">@a.user.fname @a.user.lname</h4>
+                                </div>
+                                @foreach (DB_Project.Models.File f in a.filesSubmitted)
+                                {
+                                    <a href="~/home/DownloadFile?path=@f.filePath&name=@f.fileName" class="fileCont">
+                                        <div class="Docicon inline"><i class="fas fa-file-alt"></i></div>
+                                        <p class="filename inline">@f.fileName</p>
+                                    </a>   
+                                }
+                                <div class="subTime">
+                                    <p>Submitted on</p>
+                                    <p>@a.dateSubmitted</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="notSubmitted">
+                <h3 class="heading">Not submitted</h3>
+                <div class="content">
+                    @{
+                        foreach(User u in @Model.notSub)
+                        {
+                            <div class="box1">
+                                <div>
+                                    <img class="inline image" src="@u.pic" />
+                                    <h4 class="inline name">@u.fname @u.lname</h4>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

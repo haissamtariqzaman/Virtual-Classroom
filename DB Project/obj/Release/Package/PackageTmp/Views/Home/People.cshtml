@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "People";
+}
+
+@using DB_Project.Models
+@model dynamic
+
+@{
+    User user = (User)Session["user"];
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Stream</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    <link href="~/Icons/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/People.css" rel="stylesheet" />
+    <script src="~/Scripts/People.js"></script>
+</head>
+
+<body>
+    <div id="nav">
+        <nav>
+            <div class="backButton">
+                <a class="nava" href="ClassSelect"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+            </div>
+            <div class="LogoutButton">
+                <label class="navname inline"><strong>@user.fname @user.lname  </strong></label>
+                <button class="navButton inline" onclick="logout('navDrop')"><img class="navimage" src="@user.pic" /></button>
+                <div id="navDrop" class="navDrop">
+                    <a class="link" href="~/home/PassC">Change Password</a>
+                    <a class="link" href="~/home/DisplayC">Update Picture</a>
+                    <a href="~/home/logout" class="link">Logout <i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+            <ul id="nav1">
+                <li class="navli"><a class="nava" href="~/home/Stream?class1=@Model.classId"><i class="far fa-newspaper"></i> &nbsp Feed</a></li>
+                <li class="navli"><a class="nava" href="~/home/classwork?class1=@Model.classId"><i class="fas fa-chalkboard-teacher"></i> &nbsp Classwork</a></li>
+                <li class="active"><a class="nava" href="#"><i class="fas fa-users"></i> &nbsp People</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    @{
+        if(ViewBag.message!=null)
+        {
+            <div class="errorBox">@ViewBag.message</div>
+        }
+    }
+
+    <div class="main">
+        <div class="t">
+            <h1>Teachers</h1>
+            @if (@Model.isTeacher==1)
+            {
+                <button class="addbutton" onclick="popup()"><i class="fas fa-user-plus"></i></button>
+            }
+        </div>
+        <div class="teachers">
+            @{
+                foreach( User u in @Model.teachers )
+                {
+                     <div class="box">
+                        <img class="image" src="@u.pic" />
+                        @if (@Model.isTeacher==1 && @Model.userId!=@u.id)
+                        {
+                            <button class="closeB" onclick="dropDownClick('@u.id')">&#8942</button>
+                            <div id="@u.id" class="dropdown-content">
+                                <a class="ds1" href="~/home/removeTeacher?id=@Model.classId&u=@u.id">Remove</a>
+                            </div>
+                        }
+                        <h2 class="name">@u.fname @u.lname</h2>
+                        <p class="email">@u.email</p>
+                    </div>
+                }
+            }
+        </div>
+        <div class="t">
+            <h1>Students</h1>
+        </div>
+        <div class="students">
+            @{
+                foreach(User u in @Model.students)
+                {
+                    <div class="box">
+                        <img class="image" src="@u.pic" />
+                        @if (@Model.isTeacher==1)
+                        {
+                            <button class="closeB" onclick="dropDownClick('@u.id')">&#8942</button>
+                            <div id="@u.id" class="dropdown-content">
+                                <a class="ds1" href="~/home/removeStudent?id=@Model.classId&u=@u.id">Remove</a>
+                            </div>
+                        }
+                        <h2 class="name">@u.fname @u.lname</h2>
+                        <p class="email">@u.email</p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    
+    <div id="AddPeopleM">
+        <div id="AddPeople" class="AddPeople">
+            <button class="closebutton" onclick="popUpOff()"><strong>X</strong></button>
+            <form class="addform" method="post" action="~/home/People">
+                <h2>Enter Email</h2>
+                <br />
+                <input class="emailInput" type="text" placeholder="abc@xyz.com" name="email" required />
+                <input type="hidden" value="@Model.classId" name="id"/>
+                <br />
+                <br />
+                <br />
+                <input class="button" type="submit" value="Add Teacher" name="add"/>
+                <input class="button" type="submit" value="Add Student" name="add"/>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

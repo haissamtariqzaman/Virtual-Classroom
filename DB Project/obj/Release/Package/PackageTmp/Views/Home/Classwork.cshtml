@@ -1,0 +1,250 @@
+﻿@{
+    ViewBag.Title = "Classwork";
+}
+
+@using DB_Project.Models
+@model dynamic
+
+@{
+    User user = (User)Session["user"];
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>ClassWork</title>
+    <link href="~/Content/Classwork.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    <link href="~/Icons/css/all.min.css" rel="stylesheet" />
+    <script src="~/Scripts/ClassWork.js"></script>
+</head>
+
+<body>
+    <div id="nav">
+        <nav>
+            <div class="backButton">
+                <a class="nava" href="ClassSelect"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+            </div>
+            <div class="LogoutButton">
+                <label class="navname inline"><strong>@user.fname @user.lname  </strong></label>
+                <button class="navButton inline" onclick="logout('navDrop')"><img class="navimage" src="@user.pic" /></button>
+                <div id="navDrop" class="navDrop">
+                    <a class="link" href="~/home/PassC">Change Password</a>
+                    <a class="link" href="~/home/DisplayC">Update Picture</a>
+                    <a href="~/home/logout" class="link">Logout <i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+            <ul id="nav1">
+                <li class="navli"><a class="nava" href="~/home/Stream?class1=@Model.classid"><i class="far fa-newspaper"></i> &nbsp Feed</a></li>
+                <li class="active"><a class="nava" href="#"><i class="fas fa-chalkboard-teacher"></i> &nbsp Classwork</a></li>
+                <li class="navli"><a class="nava" href="~/home/People?class1=@Model.classid"><i class="fas fa-users"></i> &nbsp People</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    @if (Model.isTeacher == 1)
+    {
+        <div class="buttonsC">
+            <button id="button" onclick="openAdd('AddAssignmentM')"><i class="fas fa-plus"></i></button>
+        </div>
+    }
+
+    <div id="main">
+        @{
+            foreach (Assignment a in Model.assignments)
+            {
+                <div class="content">
+                    <h3 id="atitle @a.id" class="assignName">@a.title</h3>
+                    <label id="aduedate @a.id" class="dueDate"><strong>Due @a.deadline</strong></label>
+                    @if (Model.isTeacher == 1)
+                    {
+                        <div class="dropDown">
+                            <button class="dropDownS" onclick="dropDownClick('a @a.id')">&#8942</button>
+                            <div id="a @a.id" class="dropdown-content">
+                                <a class="dropdownLink" href="~/home/editAssign?class1=@Model.classid&assignId=@a.id">Edit</a>
+                                <a class="dropdownLink" href="~/home/DeleteAssignment?id=@Model.classid&assignid=@a.id">Delete</a>
+                            </div>
+                        </div>
+                    }
+                    <div class="additionl">
+                        <p class="notes">@a.notes</p>
+                        <div class="attachmentsParent">
+                            @foreach (DB_Project.Models.File f in a.files)
+                            {
+                                <a class="attachments" href="~/home/DownloadFile?path=@f.filePath&name=@f.fileName">
+                                    <div class="Docicon"><i class="fas fa-file-alt"></i></div>
+                                    <h4 class="filename">@f.fileName</h4>
+                                </a>
+                            }
+                        </div>
+                        @if (@Model.isTeacher == 0)
+                        {
+                            <div class="view">
+                                <a href="~/home/AssignSub?class1=@Model.classid&aid=@a.id"><strong>View Assignment</strong></a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="view">
+                                <a href="~/home/StudentsWork?class1=@Model.classid&aid=@a.id"><strong>View Students Work</strong></a>
+                            </div>
+                        }
+                        <div class="dposted">
+                            <label>@a.dateUploaded</label>
+                        </div>
+                    </div>
+                    <button type="button" class="downB" onclick="moreButton(this)"><i class="fas fa-arrow-down"></i></button>
+                </div>
+            }
+        }
+
+        @{
+            foreach (Assignment l in Model.lectures)
+            {
+                <div class="lec">
+                    <h3 class="assignName">@l.title</h3>
+                    @if (Model.isTeacher == 1)
+                    {
+                        <div class="dropDown">
+                            <button class="dropDownS" onclick="dropDownClick('l @l.id')">&#8942</button>
+                            <div id="l @l.id" class="dropdown-content">
+                                <a class="dropdownLink" href="~/home/editLec?class1=@Model.classid&LecId=@l.id">Edit</a>
+                                <a class="dropdownLink" href="~/home/DeleteLecture?id=@Model.classid&Lecid=@l.id">Delete</a>
+                            </div>
+                        </div>
+                    }
+                    <div class="additionl">
+                        <p class="notes">@l.notes</p>
+                        <div class="attachmentsParent">
+                            @foreach (DB_Project.Models.File f in l.files)
+                            {
+                                <a class="attachments" href="~/home/DownloadFile?path=@f.filePath&name=@f.fileName">
+                                    <div class="Docicon"><i class="fas fa-file-alt"></i></div>
+                                    <h4 class="filename">@f.fileName</h4>
+                                </a>
+                            }
+                        </div>
+                        <div class="dposted">
+                            <label>@l.dateUploaded</label>
+                        </div>
+                    </div>
+                    <button type="button" class="downB" onclick="moreButton(this)"><i class="fas fa-arrow-down"></i></button>
+                </div>
+            }
+        }
+    </div>
+
+    <div id="spaceCreater">
+    </div>
+
+    <div class="selectionBar">
+        <button id="sbutton2" onclick="button1click()">Assignments</button>
+        <button id="sbutton1" onclick="button2click()">Lectures</button>
+    </div>
+
+    <div id="AddAssignmentM">
+        <div class="AddAssign">
+            <form method="post" action="~/home/AddAssignment" enctype="multipart/form-data">
+                <h2>Title</h2>
+                <input class="title due" type="text" name="title" required />
+                <h2>Note</h2>
+                <textarea class="Note" name="note"></textarea>
+                <div class="upoadButton">
+                    <label class="afiles" for="upload"> Attatch Files </label>
+                    <input type="file" id="upload" name="files" onchange="uploadChanged('upload','uploads')" multiple="multiple" />
+                </div>
+                <h2>Files selected</h2>
+                <div id="uploads">
+                </div>
+                <h2>Due</h2>
+                <input class="due" type="datetime-local" value="2020-01-11T23:59" name="due" required />
+                <h2>Resubmissions allowed</h2>
+                <input class="due" type="number" min="0" max="10" name="resub" value="0" required />
+                <br />
+                <br />
+                <input type="hidden" value="@Model.classid" name="id" />
+                <input class="addButton" type="submit" value="Add Assignment" />
+                <br />
+                <input class="addButton" type="button" value="Close" onclick="closefunc('AddAssignmentM')" />
+            </form>
+        </div>
+    </div>
+
+    <div id="AddLectureM">
+        <div class="AddLec">
+            <form method="post" action="~/home/AddLecture" enctype="multipart/form-data">
+                <h2>Title</h2>
+                <input class="title due" type="text" name="title" required />
+                <h2>Note</h2>
+                <textarea class="Note" name="note"> </textarea>
+                <div class="upoadButton">
+                    <label class="afiles" for="upload1"> Attatch Files </label>
+                    <input type="file" id="upload1" onchange="uploadChanged('upload1','uploads1')" name="files" multiple="multiple" />
+                </div>
+                <h2>Files selected</h2>
+                <div id="uploads1">
+                </div>
+                <input type="hidden" name="id" value="@Model.classid" />
+                <input class="addButton" type="submit" value="Add Lecture" />
+                <br />
+                <input class="addButton" type="button" value="Close" onclick="closefunc('AddLectureM')" />
+            </form>
+        </div>
+    </div>
+
+    @{
+        Assignment assign = Model.editAssign;
+        Assignment lec = Model.editLec;
+    }
+
+    @if (Model.editflag == 1)
+    {
+        <div id="EditAssignmentM">
+            <div class="AddAssign">
+                <form method="post" action="~/home/EditAssignment">
+                    <h2>Title</h2>
+                    <input class="title due" type="text" value="@assign.title" name="title" required />
+                    <h2>Note</h2>
+                    <textarea id="eanote" class="Note" name="note">@assign.notes</textarea>
+                    <h2>Due</h2>
+                    <input class="due" type="datetime-local" name="due" required />
+                    <h2>Resubmissions allowed</h2>
+                    <input class="due" type="number" min="0" max="10" name="resub" value="@assign.noOfResub" required />
+                    <br />
+                    <br />
+                    <input type="hidden" value="@Model.classid" name="id" />
+                    <input type="hidden" value="@assign.id" name="assignid" />
+                    <input class="addButton" type="submit" value="Save" />
+                    <br />
+                    <input class="addButton" type="button" value="Close" onclick="closefunc('EditAssignmentM')" />
+                </form>
+            </div>
+        </div>
+    }
+
+    @if (Model.editLecFlag == 1)
+    {
+        <div id="EditLecM">
+            <div class="EditLec">
+                <form method="post" action="~/home/EditLecture">
+                    <h2>Title</h2>
+                    <input class="title due" type="text" value="@lec.title" name="title" required />
+                    <h2>Note</h2>
+                    <textarea id="eanote" class="Note" name="note">@lec.notes</textarea>
+                    <br />
+                    <br />
+                    <input type="hidden" value="@Model.classid" name="id" />
+                    <input type="hidden" value="@lec.id" name="lecId" />
+                    <input class="addButton" type="submit" value="Save" />
+                    <br />
+                    <input class="addButton" type="button" value="Close" onclick="closefunc('EditLecM')" />
+                </form>
+            </div>
+        </div>
+    }
+
+</body>
+
+</html>

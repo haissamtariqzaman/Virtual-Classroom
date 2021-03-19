@@ -1,0 +1,201 @@
+﻿body {
+    font-family: 'Montserrat', sans-serif;
+    background-color:#223145;
+    color:#1F2833;
+    /*background-image:url(../Pictures/10122.png)*/
+    /*background: rgb(2,0,36);
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(79,79,182,1) 0%, rgba(0,212,255,1) 100%);*/
+}
+
+#nav {
+    margin:auto;
+    width: 100%;
+    min-width:810px;
+    text-align: center;
+    border-bottom: 2px solid #1F2833;
+    background-color:white;
+}
+
+#nav1 {
+    margin: 0;
+    padding: 0;
+}
+
+.backButton {
+    float:left;
+    margin-top:12px;
+    margin-left:10px;
+}
+
+.LogoutButton {
+    display:flex;
+    position:relative;
+    float: right;
+    margin-top: 6px;
+    margin-right: 10px;
+    align-items:center;
+}
+
+.navname {
+    font-size:16px;
+    height:20px;
+}
+
+.navButton {
+    background-color:transparent;
+    border:none;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.navButton:focus {
+    outline:none;
+}
+
+.navimage {
+    margin-top:3px;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+}
+
+.inline {
+    display:inline-block;
+}
+
+.navDrop {
+    display:none;
+    position:absolute;
+    padding:5px;
+    top:55px;
+    right:0px;
+    background-color:white;
+    border-radius:10px;
+    color:#1F2833;
+    font-size:14px;
+        width:150px;
+    z-index:2;
+}
+
+.link {
+    display:block;
+    padding:5px 10px;
+    text-decoration:none;
+    border-radius:20px;
+    color:#1F2833;
+}
+
+.link:hover {
+    background-color:#1F2833;
+    color:white;
+}
+
+.active {
+    border-bottom: 5px solid white;
+    display: inline-block;
+    padding: 10px 20px;
+    width: 110px;
+}
+
+#nav1 .navli {
+    display: inline-block;
+    padding:10px 20px;
+    width:110px;
+}
+
+.navli:hover {
+    border-bottom: 5px solid #1F2833;
+}
+
+.active:hover {
+    border-bottom: 5px solid #1F2833;
+}
+
+.nava {
+    color: #1F2833;
+    font-size: 17px;
+    font-family: 'Cairo', sans-serif;
+    text-decoration: none;
+}
+
+.heading {
+    color:white;
+    text-align:center;
+}
+
+.content {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.box {
+    position:relative;
+    background-color:white;
+    width:250px;
+    margin-left: 10px;
+    border-radius:10px;
+    padding:10px;
+    padding-bottom:55px;
+}
+
+.inline {
+    display:inline;
+    vertical-align:middle;
+}
+
+.name {
+    margin-left:4px;
+}
+
+.image {
+    width:50px;
+    height:50px;
+    border-radius:50%;
+}
+
+.fileCont {
+    margin-left:10px;
+    margin-top:10px;
+    display:inline-block;
+    border: 1px solid grey;
+    padding:5px;
+    border-radius:12px;
+    width:220px;
+    color:#1F2833;
+    text-decoration:none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Docicon {
+    font-size:30px;
+    margin-left:5px;
+}
+
+.filename {
+    font-size:16px;
+    margin-left:5px;
+}
+
+.subTime {
+    position:absolute;
+    text-align:center;
+    font-size:14px;
+    line-height:6px;
+    bottom:2px;
+    width:250px;
+}
+
+.box1 {
+    background-color:white;
+    width:250px;
+    margin-left: 10px;
+    border-radius:10px;
+    padding:5px 10px;
+}
+
+.ontime, .late, .notSubmitted{
+    min-height: 200px;
+}

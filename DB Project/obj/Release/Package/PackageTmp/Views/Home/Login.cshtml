@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+@model string
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="~/Scripts/Login.js"></script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div id="picture" class="col-sm-12 col-md-7 col-lg-8 d-flex align-items-center justify-content-center">
+                <h1 class="Wtxt">Welcome To<br>Virtual Classroom</h1>
+            </div>
+
+            <div id="formCol" class="col-sm-12 col-md-5 col-lg-4 d-flex align-items-center justify-content-center ">
+                <div class="form">
+                    <img class="mb-5 logo img-fluid" src="../Pictures/logo.png">
+                    <h1 class="text-center">Sign In</h1>
+                    @if (Model != null)
+                    {
+                        <div class="alert alert-danger .bg-white text-center" role="alert">
+                            @Model
+                        </div>
+                    }
+                    <form method="post" action="~/home/Login" onsubmit="return inputValidation()">
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input id=email type="email" class="form-control" name="username" required placeholder="abc@xyz.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input id=password type="password" class="form-control" name="password" required placeholder="********">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary align-items-center">Sign In</button>
+                            <p class=mt-2><a href="~/home/signup">Create Account</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (Bootstrap JS plugins depend on it) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+
+</html>

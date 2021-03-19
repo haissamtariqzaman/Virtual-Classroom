@@ -1,0 +1,91 @@
+body{
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+#picture {
+    background-image: url("../Pictures/login1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.row{
+    height:100vh;
+}
+
+.Wtxt{
+    color: whitesmoke;
+    text-align: center;
+    font-size: 3vw;
+}
+
+.Wtxt1{
+    color: whitesmoke;
+    text-align: center;
+}
+
+.form{
+    width:100%;
+    padding: 0 50px 0 50px;
+    color:#1F2833;
+}
+
+.form>h1{
+    font-size: 2.6vw;
+}
+
+.logo{
+    fill: currentColor;
+    color: #1F2833;
+}
+
+#formCol{
+    background-color: whitesmoke;
+}
+
+.btn, .btn:focus{
+    width:150px;
+    border-radius: 20px;
+    background-color: #1F2833;
+    border-color: #1F2833;
+}
+
+.btn:hover{
+    background-color: #353d47;
+    border-color:#353d47;
+}
+
+.btn:active{
+    background-color: #353d47 !important;
+    border-color:#353d47 !important;
+    box-shadow: 0 0 0 0.2rem rgba(31, 40, 51, 0.25) !important;
+}
+
+.text-center>p>a{
+    color:#1F2833;
+}
+
+.form-control:focus{
+    border-color: #1F2833;
+    box-shadow: 0 0 0 0.2rem rgba(31, 40, 51, 0.25);
+}
+
+@media (max-width:767px){
+    #picture{
+        height: 60vh;
+    }
+    .Wtxt{
+        color: white;
+        text-align: center;
+        font-size:  4vh;
+    }
+    .form{
+        padding: 20px 10px 20px 10px;
+    }
+    .form>img{
+        padding:30px 40px 10px 40px;
+    }
+    .form>h1{
+        font-size: 6vw;
+    }
+}

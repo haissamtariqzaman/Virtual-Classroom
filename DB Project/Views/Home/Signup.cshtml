@@ -1,0 +1,118 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model string
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Signup</title>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/styles.css" rel="stylesheet" />
+        <script src="~/Scripts/Signup.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="picture" class="order-lg-2 order-sm-1 col-sm-12 col-md-12 col-lg-8 d-flex flex-column align-items-center justify-content-center">
+                    <h1 class="Wtxt">Start using Virtual Classroom for free!</h1>
+                    <h4 class="Wtxt1">Already signed up? <a style="text-decoration: underline;" href="~/home/Login">Log in</a></h4>
+                </div>
+                <div id="formCol" class="order-lg-1 order-sm-2 col-sm-12 col-md-12 col-lg-4 d-flex align-items-center justify-content-center">
+                    <div class="form">
+                        <img class="mt-5 mb-5 logo img-fluid" src="../Pictures/logo.png">
+                        <h1 class="text-center">Sign Up</h1>
+                        @if (Model != null)
+                        {
+                            <div class="alert alert-danger .bg-white text-center" role="alert">
+                                @Model
+                            </div>
+                        }
+                        <form method="post" id="form" action="~/Home/Signup" onsubmit="return inputValidation()">
+                            <div class="form-group">
+                                <label for="name">First Name:</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input id=fname type="text" class="form-control" name="fname" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lname">Last Name:</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input id=lname type="text" class="form-control" name="lname" required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@@</span>
+                                    </div>
+                                    <input id=email type="email" class="form-control" placeholder="abc@xyz.com" name="email" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    <input id=password type="password" class="form-control" placeholder="********" name="password" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cpassword">Confirm Password:</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    <input id=cpassword type="password" class="form-control" placeholder="********" name="cpassword" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth:</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input id=ddobb type="date" class="form-control" name="dob" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender:</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-venus"></i></span>
+                                    </div>
+                                    <select id="gender" class="form-control" name="gender">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Rather not say</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary align-items-center">Join</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery (Bootstrap JS plugins depend on it) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+    </body>
+</html>

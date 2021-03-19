@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "Stream";
+}
+
+@using DB_Project.Models
+@model dynamic
+
+@{
+    User user = (User)Session["user"];
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Stream</title>
+    <link href="~/Content/stream.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    <script src="~/Scripts/NavButton.js"></script>
+    <link href="~/Icons/css/all.min.css" rel="stylesheet" />
+    <script src="~/Scripts/stream.js"></script>
+</head>
+
+<body>
+    <div id="nav">
+        <nav>
+            <div class="backButton">
+                <a class="nava" href="ClassSelect"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+            </div>
+            <div class="LogoutButton">
+                <label class="navname inline"><strong>@user.fname @user.lname  </strong></label>
+                <button class="navButton inline" onclick="logout('navDrop')"><img class="navimage" src="@user.pic" /></button>
+                <div id="navDrop" class="navDrop">
+                    <a class="link" href="~/home/PassC">Change Password</a>
+                    <a class="link" href="~/home/DisplayC">Update Picture</a>
+                    <a href="~/home/logout" class="link">Logout <i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+            <ul id="nav1">
+                <li class="active"><a class="nava" href="#"><i class="far fa-newspaper"></i> &nbsp Feed</a></li>
+                <li class="navli"><a class="nava" href="~/home/classwork?class1=@Model.classdetails.id"><i class="fas fa-chalkboard-teacher"></i> &nbsp Classwork</a></li>
+                <li class="navli"><a class="nava" href="~/home/people?class1=@Model.classdetails.id"><i class="fas fa-users"></i> &nbsp People</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="main">
+        <div id="classname">
+            <div id="heading">
+                <h1>@Model.classdetails.name</h1>
+                <h1>@Model.classdetails.section</h1>
+            </div>
+            @if (@Model.isTeacher == 1)
+            {
+                <div class="classcode">
+                    <h4>Class code: @Model.classdetails.code</h4>
+                </div>
+            }
+        </div>
+        <div id="post">
+            <div id="pcontainer">
+                <form method="post" action="~/home/Stream" enctype="multipart/form-data">
+                    <div id="post1">
+                        <div id="picture">
+                            <img class="pic" src="@Model.thisUser.pic" />
+                        </div>
+                        <div id="tarea">
+                            <textarea class="ta" placeholder="Share with your class" name="post" required></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="upload-wrapper">
+                            <label id="upload" for="upload1"><i class="fas fa-upload"></i>&nbsp  Add Files</label>
+                            <input id="upload1" type="file" name="fileUploaded" multiple="multiple" onchange="uploadChanged()">
+                            <span id="uploadText"></span>
+                        </div>
+                        <input type="hidden" value="@Model.classdetails.id" name="cid" />
+                        <input class="buttonPost" type="submit" value="Post" />
+                    </div>
+                </form>
+            </div>
+            <div id="upcoming">
+                <h3>Assignments Due</h3>
+                @{
+                    
+                    if (Model.assigndue[0]==null)
+                    {
+                      <p> No assignments due! 😄 </p>
+                    }
+                    else
+                    {
+                        <h4>Due @Model.assigndue[0].dayDue</h4>
+                        <p> @Model.assigndue[0].deadline</p>
+                        <p> @Model.assigndue[0].title</p>
+                    }
+                }
+            </div>
+        </div>
+        <div class="posts-wrapper">
+            @{ 
+                foreach (Post p in @Model.posts)
+                {
+                    <div class="postContainer">
+                        @if(p.user.id == (int)Session["id"] || @Model.isTeacher == 1)
+                        {
+                            <div class="deleteButton">
+                                <a href="~/home/DeletePost?pid=@p.id&class1=@Model.classdetails.id"><strong>X</strong></a>
+                            </div>
+                        }
+                        <div class="posts">
+                            <div class="picture1">
+                                <img class="pic" src="@p.user.pic" />
+                            </div>
+                            <div class="postContent">
+                                <h3 class="pName">@p.user.fname @p.user.lname</h3>
+                                <p class="pPara">@p.post </p>
+                                <div class="attachmentsParent">
+                                    @foreach (DB_Project.Models.File f in p.files)
+                                    {
+                                        <a class="attachments" href="~/home/DownloadFile?path=@f.filePath&name=@f.fileName">
+                                            <div class="Docicon"><i class="fas fa-file-alt"></i></div>
+                                            <h4 class="filename">@f.fileName</h4>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="time-section">
+                            <span class="Ptime">@p.datePosted</span>
+                        </div>
+                        @foreach (Comment c in p.comments)
+                        {
+                            <div class="StdComments">
+                                <div class="pictureComm">
+                                    <img class="picComm" src="@c.user.pic" />
+                                </div>
+                                <div class="StdCommContent">
+                                    <h1 class="commName">@c.user.fname @c.user.lname</h1>
+                                    <p class="commcont">@c.commentContent</p>
+                                    @if ((int)Session["id"] == c.user.id || (int)Session["id"] == p.user.id)
+                                    {
+                                        <div class="delComment">
+                                            <a href="~/home/delComment?pid=@p.id&uid=@c.user.id&dt=@c.datePosted.Ticks&class1=@Model.classdetails.id" class="trash"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <div class="comment-section">
+                            <div class="pictureComm">
+                                <img class="picComm" src="@Model.thisUser.pic" />
+                            </div>
+                            <div class="commTextA">
+                                <form method="post" action="~/Home/Comment">
+                                    <input type="hidden" value="@p.id" name="postId">
+                                    <input type="hidden" value="@Model.classdetails.id" name="class1">
+                                    <input class="commentta" type="text" name="comment" />
+                                    <button class="commsubbutt">Post <i class="far fa-paper-plane"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+                   
+             }
+        </div>
+    </div>
+</body>
+
+</html>

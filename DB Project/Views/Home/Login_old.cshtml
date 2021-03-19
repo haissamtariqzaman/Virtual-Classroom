@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+@model string
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Login</title>
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/Login.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+    <body>
+        <div id="main">
+            <div id="heading"> Virtual Classroom </div>
+            <form method="post" id="form" action="~/home/Login" onsubmit="return inputValidation()">
+                <div id="login">Sign In</div>
+                <div id="content">
+                    <div class="errorLabel">
+                        <label>@Model</label>
+                    </div>
+                    <div id="username">
+                        <i class="fa fa-user icon"></i> Username
+                        <br>
+                        <input id="user" class="input" type="text" name="username" required />
+                    </div>
+                    <div id="password">
+                        <i class="fa fa-key icon"></i> Password
+                        <br>
+                        <input id="pass" class="input" type="password" name="password" required/>
+                    </div>
+                    <div id="loginB">
+                        <input id=button class="input" value="Sign In" type="submit" />
+                    </div>
+                    <div class="cracc">
+                        <a class="cracca" href="~/home/signup">Create account</a>
+                    </div>
+                </div>
+            </form>
+         </div>
+    </body>
+
+</html>

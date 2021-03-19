@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+
+@using DB_Project.Models
+@model string
+
+@{
+    User user = (User)Session["user"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Change Password</title>
+    <script src="~/Scripts/NavButton.js"></script>
+    <link href="~/Content/PassC.css" rel="stylesheet" />
+    <script src="~/Scripts/PassC.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Montserrat&display=swap" rel="stylesheet">
+    <link href="~/Icons/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="nav">
+        <nav>
+            <div class="backButton">
+                <a class="nava" href="ClassSelect"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
+            </div>
+            <div class="LogoutButton">
+                <label class="navname inline1"><strong>@user.fname @user.lname  </strong></label>
+                <button class="navButton inline1" onclick="logout('navDrop')"><img class="navimage" src="@user.pic" /></button>
+                <div id="navDrop" class="navDrop">
+                    <a class="link" href="#">Change Password</a>
+                    <a class="link" href="~/home/DisplayC">Update Picture</a>
+                    <a href="~/home/logout" class="link">Logout <i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+            <ul id="nav1">
+            </ul>
+        </nav>
+    </div>
+    <div class="heading">
+        <h2>Change Password</h2>
+    </div>
+    <div class="box">
+        <p class="msg">@ViewBag.msg</p>
+        <form method="post" class="form" action="~/home/PassC" onsubmit="return validate()">
+            Current Password
+            <br />
+            <input class="input" id="old" type="password" name="old" required />
+            <br />
+            New Password
+            <br />
+            <input class="input" id="new" type="password" name="newp" required />
+            <br />
+            Confirm Password
+            <br />
+            <input class="input" id="confirm" type="password" required />
+            <br />
+            <input class="button" type="submit" value="Change Password">
+        </form>
+    </div>
+    <div>
+
+    </div>
+</body>
+</html>
