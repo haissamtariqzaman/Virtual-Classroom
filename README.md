@@ -8,5 +8,5 @@ Virtual classroom is google classroom like web application. Through this applica
 
 ## Project Contribution
 
-- Frontend and Business layer: Haissam Tariq
-- SQL Database: Zainab Rehan
+- Frontend and Business layer: [Haissam Tariq Zaman](https://github.com/haissamtariqzaman)
+- SQL Database: [Zainab Rehan](https://github.com/zainab-rehan)
